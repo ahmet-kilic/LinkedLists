@@ -7,7 +7,6 @@ int main() {
     LinkedList<int> llist2;
     LinkedList<int> llist3;
     LinkedList<int> empty;
-    Node<int> *test;
 
     llist.insertAtTheEnd(1);
     llist.insertAtTheEnd(2);
