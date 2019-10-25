@@ -45,8 +45,8 @@ template<class T>
 LinkedList<T>::LinkedList()
 {
     /* TODO */
-    head = new Node<T>();
-    tail = new Node<T>();
+    head = new Node<T>;
+    tail = new Node<T>;
     head->next = tail;
     tail->prev = head;
 }
@@ -55,6 +55,10 @@ template<class T>
 LinkedList<T>::LinkedList(const LinkedList &obj)
 {
     /* TODO */
+    head = new Node<T>;
+    tail = new Node<T>;
+    head->next = tail;
+    tail->prev = head;
     *this = obj;
 }
 
@@ -90,7 +94,7 @@ Node<T> * LinkedList<T>::getTail() const
 }
 
 template<class T>
-int LinkedList<T>::getNumberOfNodes() 
+int LinkedList<T>::getNumberOfNodes()
 {
     /* TODO */
     int i = 0;
@@ -148,17 +152,19 @@ void LinkedList<T>::insertAtTheEnd(const T &data)
 
 template<class T>
 void LinkedList<T>::insertAfterGivenNode(const T &data, Node<T> *prev)
-{   
+{
     /* TODO */
     if(prev == NULL) return;
     prev->next = new Node<T>(data, prev, prev->next);
     prev->next->next->prev = prev->next;
-} 
+}
 
 template<class T>
 void LinkedList<T>::removeNode(Node<T> *node)
 {
     /* TODO */
+    if(node == NULL) return;
+    if(findNode(node->element) == NULL) return;
     node->prev->next = node->next;
     node->next->prev = node->prev;
     delete node;
@@ -169,15 +175,11 @@ void LinkedList<T>::removeAllNodes()
 {
     /* TODO */
     Node<T> *current;
-    current = head->next->next;
+    current = head->next;
     while(current != tail){
-        if(current->next == tail){
-            delete current->prev;
-            delete current;
-            break;
-        }
-        delete current->prev;
-        current = current->next;
+        Node<T> *next = current->next;
+        delete current;
+        current = next;
     }
     head->next = tail;
     tail->prev = head;
@@ -238,7 +240,7 @@ LinkedList<T> & LinkedList<T>::operator=(const LinkedList &rhs)
         else{
             Node<T> *rhs_current = rhs.getHead()->next;
             while(rhs_current != rhs.getTail()){
-                insertAtTheEnd(rhs_current->element);
+                this->insertAtTheEnd(rhs_current->element);
                 rhs_current = rhs_current->next;
             }
         }
